@@ -8,6 +8,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let expenses = JSON.parse(localStorage.getItem("expense")) || [];
     let totalAmount = calculateTotal();
 
+    expenseForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = expenseNameInput.value.trim();
+        const amount = parseFloat(expenseAmountInput.value.trim());
+
+        if(amount !== "" && !isNaN(amount) && amount>0){
+            const newExpense = {
+                id: Date.now(),
+                name: name,
+                amount: amount
+            };
+            expenses.push(newExpense);
+            saveExpenses();
+            renderExpenses();
+            updateTotal();
+
+            //clears input
+            expenseNameInput.value = "";
+            expenseAmountInput.value = "";
+        }
+    })
+
     function saveExpenses(){
         localStorage.setItem("expense", JSON.stringify(expenses))
     }
