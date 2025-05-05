@@ -30,6 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
+    function calculateTotal(){
+        return expenses.reduce((sum, expense) => sum + expense.amount, 0)
+    }
+
+    function updateTotal(){
+        totalAmount = calculateTotal();
+        totalAmountDisplay.textContent = totalAmount.toFixed(2);
+    }
+
     function saveExpenses(){
         localStorage.setItem("expense", JSON.stringify(expenses))
     }
